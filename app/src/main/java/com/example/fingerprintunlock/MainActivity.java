@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
        //         textView.setText("Please enable the fingerprint permission");
 
             }
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (initCipher()) {
                     cryptoObject = new FingerprintManager.CryptoObject(cipher);
-                    FingerprintHandler helper = new FingerprintHandler(this);
+                    FingerprintHandler helper = new FingerprintHandler(context);
                     helper.startAuth(fingerprintManager, cryptoObject);
                 }
             }

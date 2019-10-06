@@ -52,9 +52,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     @Override
     public void onAuthenticationFailed() {
-/*        Toast.makeText(context,
-                "Authentication failed",
-                Toast.LENGTH_LONG).show();*/
+
 
         binding.textView.setTextColor(Color.RED);
         binding.textView.setText("Fingerprint not recognised! try again");
