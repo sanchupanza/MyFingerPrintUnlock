@@ -3,9 +3,11 @@ package com.example.fingerprintunlock;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
 import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
@@ -14,6 +16,8 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.widget.TextView;
+
+import com.example.fingerprintunlock.databinding.ActivityMainBinding;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -40,15 +44,21 @@ public class MainActivity extends AppCompatActivity {
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
 
-    public static TextView label;
+
+    private ActivityMainBinding binding;
+    private Context context;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        context =this;
 
-        label = (TextView) findViewById(R.id.textView);
+
+
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

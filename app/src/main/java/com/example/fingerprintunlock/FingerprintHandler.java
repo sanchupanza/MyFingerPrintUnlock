@@ -14,12 +14,16 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 
-import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
+import com.example.fingerprintunlock.databinding.ActivityMainBinding;
+
 
 
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
+
+    private ActivityMainBinding binding;
 
     private CancellationSignal cancellationSignal;
     private Context context;
@@ -27,6 +31,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     public FingerprintHandler(Context mContext) {
         context = mContext;
+        binding = DataBindingUtil.setContentView((Activity) mContext,R.layout.activity_main);
     }
 
     public void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
@@ -51,8 +56,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
                 "Authentication failed",
                 Toast.LENGTH_LONG).show();*/
 
-    MainActivity.label.setTextColor(Color.RED);
-    MainActivity.label.setText("Fingerprint not recognised! try again");
+        binding.textView.setTextColor(Color.RED);
+        binding.textView.setText("Fingerprint not recognised! try again");
 
     }
 
@@ -69,16 +74,13 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     public void onAuthenticationSucceeded(
             FingerprintManager.AuthenticationResult result) {
 
-      /*  Toast.makeText(context,
-                "Success!",
-                Toast.LENGTH_LONG).show();*/
+        Toast.makeText(context,
+                "Authenticated Successfully!",
+                Toast.LENGTH_LONG).show();
 
-        MainActivity.label.setTextColor(Color.BLACK);
-        MainActivity.label.setText("Authenticated Succesfully");
-        Intent intent = new Intent(context,HomeActivity.class);
-      /*  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(FLAG_ACTIVITY_NO_HISTORY);*/
-        context.startActivity(intent);
+        binding.textView.setTextColor(Color.BLACK);
+        binding.textView.setText("Authenticated Succesfully");
+        context.startActivity(new Intent(context,HomeActivity.class));
         ((Activity)context).finish();
 
 
